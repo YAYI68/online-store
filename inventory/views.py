@@ -132,6 +132,16 @@ class SupplierUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         except:
             raise rest_exceptions.ParseError('Supplier not found')
 
+    def delete(self, request, *args, **kwargs):
+        try:
+            super().delete(request, *args, **kwargs)
+            message = {
+                "message": "Supplier deleted successfully"
+            }
+            return Response(message, status=status.HTTP_200_OK)
+        except:
+            raise rest_exceptions.ParseError('Supplier not found')
+
 
 class InventoryView(generics.CreateAPIView, generics.ListAPIView):
     serializer_class = InventoryItemSerializer
