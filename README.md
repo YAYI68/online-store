@@ -53,7 +53,7 @@ it will be accessible at http://127.0.0.1:8000.
 
 ## Testing the Rest Api 
 You can use desktop postman or the live postman to test your queries,
-here is the link to [**view the api**](https://documenter.getpostman.com/view/31453748/2sA35BbQ7i)
+here is the link to [**view the api**](https://documenter.getpostman.com/view/14724403/2sA3XS9fUj)
 
 ## Conclusion 
 You have successfully setup the project
