@@ -13,7 +13,7 @@ Before getting started, ensure you have the following installed on your system:
 ### 1. Clone the project from Github repository
 
 ```bash
-git clone https://github.com/YAYI68/divic-assessment.git
+git clone https://github.com/YAYI68/online-store.git
 
 ```
 
