@@ -32,9 +32,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "corsheaders",
-    'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
+    'user.apps.UserConfig',
     'inventory.apps.InventoryConfig',
+    'rest_framework',
+    # 'rest_framework_simplejwt.token_blacklist',
+
+
 ]
 
 MIDDLEWARE = [
@@ -216,6 +219,6 @@ MEDIA_ROOT = "media/images"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
-AUTH_USER_MODEL = 'inventory.User'
+AUTH_USER_MODEL = 'user.User'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
