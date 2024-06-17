@@ -26,6 +26,13 @@ class UserSeriliazer(serializers.ModelSerializer):
         fields = ('id', 'email', 'firstname', 'lastname')
 
 
+class ItemSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = InventoryItem
+        fields = ("id", "name", "price", "quantity")
+
+
 class SupplierSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -34,13 +41,15 @@ class SupplierSerializer(serializers.ModelSerializer):
 
 
 class SupplierDetailSerializer(serializers.ModelSerializer):
+    items = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Supplier
         fields = ("id", "name", "email", "phone_number", "address", "items")
 
     def get_items(self, obj):
-        return obj.items
+        serializer = ItemSerializer(obj.items, many=True)
+        return serializer.data
 
 
 class InventoryItemSerializer(serializers.ModelSerializer):

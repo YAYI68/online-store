@@ -110,24 +110,27 @@ class SupplierUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
     def patch(self, request, pk):
-        data = request.data
-        supplier = Supplier.objects.get(pk=pk)
-        if supplier is None:
-            raise rest_exceptions.NotFound(detail="Supplier not found.")
+        try:
+            data = request.data
+            supplier = Supplier.objects.get(pk=pk)
+            if supplier is None:
+                raise rest_exceptions.NotFound(detail="Supplier not found.")
 
-        dataObj = {
-            "name": data.get("name", supplier.name),
-            # "email": data.get("email", supplier.email),
-            "phone_number": data.get("phone_number", supplier.phone_number),
-            "address": data.get("address", supplier.address),
-        }
-        serializer = SupplierSerializer(
-            supplier, data=dataObj, partial=True)
-        print(serializer)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            dataObj = {
+                "name": data.get("name", supplier.name),
+                # "email": data.get("email", supplier.email),
+                "phone_number": data.get("phone_number", supplier.phone_number),
+                "address": data.get("address", supplier.address),
+            }
+            serializer = SupplierSerializer(
+                supplier, data=dataObj, partial=True)
+            print(serializer)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            raise rest_exceptions.ParseError('Supplier not found')
 
 
 class InventoryView(generics.CreateAPIView, generics.ListAPIView):
@@ -178,5 +181,15 @@ class InventoryDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
             else:
                 print(serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            raise rest_exceptions.ParseError('Inventory not found')
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            super().delete(request, *args, **kwargs)
+            message = {
+                "message": "Item deleted successfully"
+            }
+            return Response(message, status=status.HTTP_200_OK)
         except:
             raise rest_exceptions.ParseError('Inventory not found')
