@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'inventory.apps.InventoryConfig',
     'rest_framework',
-    # 'rest_framework_simplejwt.token_blacklist',
+    'rest_framework_simplejwt.token_blacklist',
 
 
 ]

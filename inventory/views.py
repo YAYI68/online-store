@@ -92,9 +92,12 @@ class InventoryDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
-        inventory = InventoryItem.objects.get(pk=pk)
-        serializer = InventoryDetailItemSerializer(inventory, many=False)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            inventory = InventoryItem.objects.get(pk=pk)
+            serializer = InventoryDetailItemSerializer(inventory, many=False)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            raise rest_exceptions.ParseError('Inventory not found')
 
     def patch(self, request, pk):
         try:
